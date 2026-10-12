@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Article preview component</title>
+
+  <style>
+    *{
+      margin: 0;
+      padding:0;
+       box-sizing: border-box;
+      font-family: 'Manrope', sans-serif;
+    }
+    body{
+      background-color:hsl(212, 23%, 69%); 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 100vh;
+      padding: 20px;
+    }
+    .Card{
+      background-color: hsl(210, 46%, 95%);
+        display: flex;
+       max-width: 730px;
+       border-radius: 10px;
+        text-align: left;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        overflow: visible;
+        position: relative;
+       
+    }
+    .Discription{
+    padding: 20px;
+    }
+    .picFenture{
+width: 280px;
+object-fit: cover;
+border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+    .discripPro{
+     color: hsl(217, 19%, 35%);
+     font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .Prograph{
+      color:gray;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .Acount{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+    .Author-Info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .AcountAImage{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      
+    }
+   .AcountName{
+  font-size: 0.8125rem;
+      font-weight: 700;
+      color: hsl(217, 19%, 35%);
+   }
+   .AcountDate{
+font-size: 0.8125rem;
+      color: hsl(212, 23%, 69%);
+
+   }
+
+  /* زر المشاركة الدائري */
+   .ShareBtn{
+    background-color:hsl(210, 46%, 95%); 
+    width:32px;
+    height: 32px;
+    border-radius: 50%;
+   display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s;
+z-index: 10;
+   }
+   .ShareBtn:hover, .ShareBtn.active{
+    background-color: hsl(214, 17%, 51%);
+   }
+   .ShareBtn:hover svg path, .ShareBtn.active svg path{
+    fill:#ffffff;
+   }
+
+   /* --- نافذة المشاركة المنبثقة (Share Tooltip) --- */
+   .ShareTooltrip{
+    position: absolute;
+    top:-75px;
+    right:-68px;
+    background-color: hsl(217, 19%, 35%);
+    padding: 18px 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+
+    /* إخفاء النافذة افتراضياً */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+   }
+
+  /* كلاس التفعيل للظهور بواسطة الجافاسكربت */
+    .ShareTooltrip.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+  /* مثلث السهم النازل أسفل الصندوق */
+    .ShareTooltrip::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 10px 10px 0 10px;
+      border-style: solid;
+      border-color: hsl(217, 19%, 35%) transparent transparent transparent;
+    }
+
+   .ShareTooltrip span{
+    color:hsl(212, 23%, 69%);
+    letter-spacing: 5px;
+    font-size: 0.8rem;
+   }
+
+   .SocialIcons{
+    display: flex;
+    gap:16px;
+    align-items: center;
+   }
+
+   .SocialIcons img{
+    cursor: pointer;
+   }
+
+   /* --- التكيف مع الموبايل --- */
+   @media (max-width:768px)
+   {
+    .Card{
+      flex-direction: column;
+      max-width:330px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .picFenture{
+      width:100%;
+      height: 200px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .Discription{
+      padding: 30px 24px 20px;
+    }
+
+    .ShareTooltrip{
+      position: absolute;
+      top:auto;
+      left:0;
+      right:0;
+      bottom:0;
+      width:100%;
+      height: 60px;
+      border-radius: 0 0 10px 10px;
+      padding: 0 24px;
+      justify-content: space-between;
+      background-color:hsl(217, 19%, 35%);
+
+      /* إخفاء واظهار بالتنقل */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3 ease, visibility 0.3s ease;
+    }
+    
+    .ShareTooltrip.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .ShareTooltrip::after{
+      display: none;
+
+    }
+   }
+
+  </style>
+</head>
+<body>
+
+  <div class="Card">
+
+  <img src="images/drawers.jpg" alt="Furniture drawers" class="picFenture"/>
+
+  <div class="Discription">
+
+ <h3 class="discripPro">Shift the overall look and feel by adding these wonderful 
+  touches to furniture in your home</h3> 
+
+  <p class="Prograph">Ever been in a room and felt like something was missing? Perhaps 
+  it felt slightly bare and uninviting. I’ve got some simple tipsz 
+  to help you make any room feel complete.</p>
+
+  <div class="Acount">
+
+   <div class="Author-Info">
+  <img src="images/avatar-michelle.jpg" alt="AcountImage" class="AcountAImage"/>
+<div class="NameDate">
+  <p class="AcountName">Michelle Appleton</p>
+  <p class="AcountDate">28 Jun 2020</p>
+</div>
+ </div>
+
+ 
+ <!-- زر المشاركة برسم SVG لتغيير لونه بسهولة -->
+  <button class="ShareBtn" id="shareBtn"> 
+  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="13"><path fill="#6E8098" d="M15 6.995L8.5.866V4.5C3.833 5.02 1.48 8.082 0 12.33 1.83 9.426 4.33 8.358 8.5 8.358v3.637L15 6.995z"/></svg>
+</button>
+
+<!-- نافذة وسائل التواصل المنبثقة -->
+ <div class="ShareTooltrip" id="ShareTooltrip">
+  <span>SHARE</span>
+  <div class="SocialIcons">
+    <img src="images/icon-facebook.svg" alt="Facebook">
+    <img src="images/icon-twitter.svg" alt="Twitter">
+    <img src="images/icon-pinterest.svg" alt="Pinterest">
+  </div>
+ </div>
+
+</div>
+  </div>
+  </div>
+
+ <!-- كود الجافاسكربت للتحكم بإظهار وإخفاء النافذة -->
+  <script>
+    const shareBtn = document.getElementById('shareBtn');
+    const shareTooltrip = document.getElementById('ShareTooltrip'); // مطابقة للحرف الكبير T في الـ HTML
+
+    shareBtn.addEventListener('click', () => {
+      shareTooltrip.classList.toggle('active');
+      shareBtn.classList.toggle('active');
+    });
+  </script>
+  <!--
+  <footer class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </footer>
+  -->
+</body>
+</html>
